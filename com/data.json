@@ -1,0 +1,169 @@
+{
+  "solutions": [
+    {
+      "id": 11,
+      "name": "Окошко #",
+      "text": "N = readline()-0;\n if(N==1) {\n print('#');\n } else if(N==2){\n print('##');\n print('##');\n } else {\n print(new Array(N+1).join('#'));\n for(i=2;i<N;i++) {\n print('#' + new Array(N-2+1).join(' ') + '#');\n }\n print(new Array(N+1).join('#'));\n }"
+    },
+    {
+      "id": 12,
+      "name": "Лазер",
+      "text": "I = readline().split(' ');\nW=I[0]-0;\nH=I[1]-0;\ng=[];\nfor(i = 0; i < H; i++) {\n    l=readline();\n    g[i]=l.split('');\n    if(l.indexOf('L')>-1) {\n        X=l.indexOf('L');Y=i;\n    }\n}\nd='B';\nf=function(x,y,r) {\n    if(g[y][x]=='/' && d=='B') {d='A';r++} else\n    if(g[y][x]=='/' && d=='D') {d='C';r++} else\n    if(g[y][x]=='/' && d=='A') {d='B';r++} else\n    if(g[y][x]=='/' && d=='C') {d='D';r++} else\n\n    if(g[y][x]=='\\\\' && d=='B') {d='C';r++} else\n    if(g[y][x]=='\\\\' && d=='D') {d='A';r++} else\n    if(g[y][x]=='\\\\' && d=='A') {d='B';r++} else\n    if(g[y][x]=='\\\\' && d=='C') {d='D';r++}\n\n    if(d=='A' && y>0) return f(x,y-1,r);\n    if(d=='B' && x<W-1) return f(x+1,y,r);\n    if(d=='C' && y<H-1) return f(x,y+1,r);\n    if(d=='D' && x>0) return f(x-1,y,r);\n\n    return r;\n}\n\n\nprint(f(X,Y,0));"
+    },
+    {
+      "id": 13,
+      "name": "Часто встречающаяся буква (разы)",
+      "text": " w = readline().replace(/\\s/g,'');\n o = {};\n for(var i=0; i<w.length; i++) {\n if(o[w[i]]) {\n o[w[i]]++;\n } else {\n o[w[i]]=1;\n }\n }\n max = 0;\n for(prop in o) {\n if(o[prop] > max ) max = o[prop]\n }\n print(max);"
+    },
+    {
+      "id": 14,
+      "name": "Разница времён ЧЧ.ММ.СС",
+      "text": "I = readline().split(' ');\nA = I[0].split(':');\nB = I[1].split(':');\nA=(A[0]*3600)+(A[1]*60)+(A[2]-0);\nB=(B[0]*3600)+(B[1]*60)+(B[2]-0);\n\nd=Math.abs(A-B);\n\nf = function (ss) {\n    h   = Math.floor(ss / 3600);\n    m = Math.floor((ss - (h * 3600)) / 60);\n    s = ss - (h * 3600) - (m * 60);\n\n    if (h   < 10) {h   = \"0\"+h;}\n    if (m < 10) {m = \"0\"+m;}\n    if (s < 10) {s = \"0\"+s;}\n    return h+':'+m+':'+s;\n}\n\nprint(f(d));"
+    },
+    {
+      "id": 15,
+      "name": "Високосный год",
+      "text": "Y=readline()-0;0==Y%4?0==Y%100?0==Y%400?print(!0):print(!1):print(!0):print(!1);"
+    },
+    {
+      "id": 16,
+      "name": "Свободные комнаты",
+      "text": " N=readline()-0;a=[];for(i=0;i<N;i++){R=readline()-0;f=!0;for(j=0;j<a.length;j++)if(a[j]==R){f=!1;break}f&&a.push(R);print(f?\"free\":\"not free\")};"
+    },
+    {
+      "id": 17,
+      "name": "Число словами",
+      "text": "var th = ['', ' thousand', ' million', ' billion', ' trillion', ' quadrillion', ' quintillion'];\nvar dg = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];\nvar tn = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];\nvar tw = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];\n\nprint(toWords(N).trim() == '' ? 'zero' : toWords(N).trim());\n\nfunction toWords(s) {\n    s = s.toString();\n    s = s.replace(/[\\, ]/g, '');\n    if (s != parseFloat(s)) return 'not a number';\n    var x = s.indexOf('.');\n    if (x == -1) x = s.length;\n    if (x > 15) return 'too big';\n    var n = s.split('');\n    var str = '';\n    var sk = 0;\n    for (var i = 0; i < x; i++) {\n        if ((x - i) % 3 == 2) {\n            if (n[i] == '1') {\n                str += tn[Number(n[i + 1])] + ' ';\n                i++;\n                sk = 1;\n            } else if (n[i] != 0) {\n                str += tw[n[i] - 2] + ' ';\n                sk = 1;\n            }\n        } else if (n[i] != 0) {\n            str += dg[n[i]] + ' ';\n            if ((x - i) % 3 == 0) str += 'hundred ';\n            sk = 1;\n        }\n        if ((x - i) % 3 == 1) {\n            if (sk) str += th[(x - i - 1) / 3] + ' ';\n            sk = 0;\n        }\n    }\n    if (x != s.length) {\n        var y = s.length;\n        str += 'point ';\n        for (var i = x + 1; i < y; i++) str += dg[n[i]] + ' ';\n    }\n    return str.replace(/\\s+/g, ' ');\n}"
+    },
+    {
+      "id": 18,
+      "name": "Все нечётные до N",
+      "text": "N=readline()-0;for(i=0;i<N+1;i++){if(i%2!=0)print(i)}"
+    },
+    {
+      "id": 19,
+      "name": "Возвести в степень от 1 до N",
+      "text": "var inputs = readline().split(' ');\nvar n = parseInt(inputs[0]);\nvar r = parseInt(inputs[1]);\na=[];\nfor(var i=0; i<n; i++) {\n    a.push(Math.pow(r,i));    \n}\nprint(a.join(' '));"
+    },
+    {
+      "id": 21,
+      "name": "hello world -> Hello World",
+      "text": "print(readline().replace(/\\w\\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}));"
+    },
+    {
+      "id": 22,
+      "name": "Есть ли повторяющиеся буквы",
+      "text": "w = readline().toLowerCase();\nif(w.length > 1) {\n    f=false;\n    for(var i=1; i<w.length; i++) {\n        if(w[i-1]==w[i]) {f=true; break;}\n    }\n    print(f)\n} else {\n    print(false)\n}"
+    },
+    {
+      "id": 23,
+      "name": "Tic Tac Toe",
+      "text": "A = readline();\nB = readline();\nC = readline();\nD=A[0]+B[0]+C[0];\nE=A[1]+B[1]+C[1];\nF=A[2]+B[2]+C[2];\nG=A[0]+B[1]+C[2];\nH=A[2]+B[1]+C[0];\no=x=0;\nO='OOO';\nX='XXX';\nif(A==O||B==O||C==O||D==O||E==O||F==O||G==O||H==O) o=1;\nif(A==X||B==X||C==X||D==X||E==X||F==X||G==X||H==X) x=1\nif((!x && !o) || (x&&o)) print('Draw'); else print(x?'X':'O');"
+    },
+    {
+      "id": 24,
+      "name": "Слово отражается",
+      "text": "n=readline()-0;\nfor (i = 0; i < n; i++) {\n    w = readline();\n    f=true;\n    for (j = 0; j < w.length/2; j++) {\n        if(w[j]!=w[w.length-j-1]) f=false\n    }\n    print(f);\n}"
+    },
+    {
+      "id": 27,
+      "name": "Ряд Фибоначчи",
+      "text": "n = readline()-0;\nmap = {};\nvar f = function(x) {\n    if(map['p'+x]) return map['p'+x];\n    if(x == 0) {map['p'+x]=0;return 0;}\n    if(x == 1) {map['p'+x]=1;return 1;}\n    r=f(x-2) + f(x-1);\n    map['p'+x]=r;\n    return parseInt(r);\n}\nf(n);a=[];\nfor(prop in map) {\n    a.push(map[prop]);\n}\nprint(a.join(' '));"
+    },
+    {
+      "id": 28,
+      "name": "ACTG --> TGAC",
+      "text": "print(readline().replace(/A/g,'0').replace(/C/g,'1').replace(/T/g,'A').replace(/G/g,'C').replace(/0/g,'T').replace(/1/g,'G'));"
+    },
+    {
+      "id": 29,
+      "name": "Определить категорию числа",
+      "text": "X=readline()-0;N=readline()-0;for(i=0;i<N;i++)if(I=readline().split(\" \"),F=I[0]-0,T=I[1]-0,C=I[2],X>=F&&X<=T){print(C);break};"
+    },
+    {
+      "id": 30,
+      "name": "Перебор массива [X,1,2,3,4,5]",
+      "text": "n = readline()-0;\nx = readline()-0;\na = [];\np = 0;\nfor(i=0; i<n; i++) {\n    a.push(i+1);\n}\nfor(var i=0; i<n; i++) {\n    p = (p + x) % a.length;\n    print(a.splice(p-1,1)[0]);\n    p--;\n}"
+    },
+    {
+      "id": 31,
+      "name": "Mortal Combat",
+      "text": "I=readline().split(' ');\nH1=I[0]-0;\nD1=I[1]-0;\nI=readline().split(' ');\nH2=I[0]-0;\nD2=I[1]-0;\nl=0;\nwhile(H1>0&&H2>0) {\n    l++;\n    H1-=D2;\n    H2-=D1;\n}\n\nprint(H1>H2?1:2,l);"
+    },
+    {
+      "id": 32,
+      "name": "Крест",
+      "text": "I=readline().split(' ');\nW=I[0]-0;\nH=I[1]-0;\ng=[];\nfor (i = 0; i < H; i++) {\n    g[i] = readline().split('');\n}\nvar f = function(x,y) {\n    if( x>0 && g[y][x-1] == 'X' &&\n        y>0 && g[y-1][x] == 'X' &&\n        x<W-1 && g[y][x+1] == 'X' &&\n        y<H-1 && g[y+1][x] == 'X' &&\n        g[y][x] == 'X') {\n        return true;\n    } else {\n        return false;\n    }\n}\nfor(r=0,i=0; i<H; i++) {\n    for(j=0; j<W; j++) {\n        if(f(j,i)) r++;\n    }\n}\nprint(r)"
+    },
+    {
+      "id": 33,
+      "name": "toCamelCase()",
+      "text": "print(readline().toLowerCase().replace(/(?:^\\w|[A-Z]|\\b\\w)/g, function(letter, index) {\n    return index == 0 ? letter.toLowerCase() : letter.toUpperCase();\n  }).replace(/\\s+/g, ''));"
+    },
+    {
+      "id": 35,
+      "name": "Определить пример 635 68 -> 63+5",
+      "text": "I=readline().split(' ');\nn=I[0]-0;\nx=I[1]-0;\n\nfor(i=0; i<I[0].length; i++) {\n    a = I[0].substring(0,i);\n    b = I[0].substring(i,I[0].length);\n    A = a-0;\n    B = b-0;\n    a=a==0?'':a;\n    b=b==0?'':b;\n    if(A+B==x) {\n        print(a+'+'+b)\n        break;\n    }\n    if(A-B==x) {\n        print(a+'-'+b)\n        break;\n    }\n    if(A*B==x) {\n        print(a+'*'+b)\n        break;\n    }\n    if(A/B==x) {\n        print(a+'/'+b)\n        break;\n    }\n}"
+    },
+    {
+      "id": 36,
+      "name": "Бинарные операции 001 011",
+      "text": "I=readline().split(' ');print(I[0].replace(/./g,function(s, i){return (s-0)|(I[1][i]-0)}))"
+    },
+    {
+      "id": 37,
+      "name": "Замена Hello World -> H3110 W0r1d",
+      "text": "s=readline();\nmap = {\n    'O':'0',\n    'L':'1',\n    'Z':'2',\n    'E':'3',\n    'A':'4',\n    'S':'5',\n    'G':'6',\n    'T':'7',\n    'B':'8',\n    'Q':'9'};\nprint(s.replace(/./g,function(c) {\n    if(map[c.toUpperCase()]) return map[c.toUpperCase()]\n    else return c;\n}));"
+    },
+    {
+      "id": 38,
+      "name": "Замена BINGO -> BANKS",
+      "text": "I=readline().split(' ');\nA=I[0];\nB=I[1];\nr=l=A.length;\nfor(i=0; i<l; i++) {\n    if(A[i]==B[i]) r--\n}\n\nprint(r);"
+    },
+    {
+      "id": 39,
+      "name": "Линейное уравнение k1*x+k2",
+      "text": "I=readline().split(' ');\nx1=I[0]-0;\ny1=I[1]-0;\nI=readline().split(' ');\nx2=I[0]-0;\ny2=I[1]-0;\nk1=(y2-y1)/(x2-x1);\nk2=-1*((k1*x1)-y1);\nif(k2<0) {\n    print(k1 + '*x' + k2);\n} else {\n    print(k1 + '*x+' + k2);\n}"
+    },
+    {
+      "id": 4,
+      "name": "Рожицы",
+      "text": " i= readline().split(' ');\n b= i[1];\n e= i[2];\n c= i[5];\n l=c.length;\n print(new Array(6).join(i[0]));\n print(b+ e+ ' ' + e+ b);\n print(b+  ' ' + i[3]+ ' ' + b);\n print(b+  ' ' + i[4]+ ' ' + b);\n if(l < 5) c= new Array(((5-l) / 2) + 1).join(' ') + c;\n print(c);"
+    },
+    {
+      "id": 40,
+      "name": "Площадь пересечения квадратов",
+      "text": "var inputs = readline().split(' ');\nvar x1 = parseInt(inputs[0]);\nvar y1 = parseInt(inputs[1]);\nvar x2 = parseInt(inputs[2]);\nvar y2 = parseInt(inputs[3]);\nvar inputs = readline().split(' ');\nvar x3 = parseInt(inputs[0]);\nvar y3 = parseInt(inputs[1]);\nvar x4 = parseInt(inputs[2]);\nvar y4 = parseInt(inputs[3]);\n\n\nif(x1<x3 && x1<x4 && x2<x3 && x2<x4) {\n    print(0)\n} else if(x1>x3 && x1>x4 && x2>x3 && x2>x4) {\n    print(0)\n} else if(y1<y3 && y1<y4 && y2<y3 && y2<y4) {\n    print(0)\n} else if(y1>y3 && y1>y4 && y2>y3 && y2>y4) {\n    print(0)\n} else {\n    a1=a2=0\n    b1=b2=0;\n    \n    a1 = Math.max(x1,x3)\n    a2 = Math.min(x2,x4)\n    b1 = Math.min(y1,y3)\n    b2 = Math.max(y2,y4)\n}\nprint(Math.abs(a1-a2)*Math.abs(b1-b2));"
+    },
+    {
+      "id": 41,
+      "name": "Точки с минимальным расстоянием",
+      "text": "N=readline();\nf=function d(x1,y1,x2,y2){\n    return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));\n}\nd=1/0;a=[];\nfor(i=0;i<N;i++) {\n    I=readline().split(' ');\n    a.push({x:I[0]-0,y:I[1]-0});\n}\nfor(i=0;i<N;i++) {\n    for(j=0;j<N;j++) {\n        r=f(a[i].x,a[i].y,a[j].x,a[j].y);\n        if(r<d & i!=j){\n            d=r\n            A=a[i];B=a[j]\n        }\n    }\n}\nprint(A.x,A.y);\nprint(B.x,B.y);"
+    },
+    {
+      "id": 42,
+      "name": "Повернуть таблицу",
+      "text": "I=readline().split(' ');\nW=I[0]-0;\nH=I[1]-0;\ng=[]\nfor (var i = 0; i < H; i++) {\n    g[i]=readline().split('');\n}\nfor (i=0; i<W; i++) {\n    row=[];\n    for (j=H-1; j>-1; j--) {\n        row.push(g[j][i])\n    }\n    print(row.join(''))\n}"
+    },
+    {
+      "id": 6,
+      "name": "Песочные часы из дефисов",
+      "text": "var w = readline();\nvar l = w.length;\nfor(var i = l; i > 2; i-=2) {\n    print(new Array((l-i)/2+1).join(' ') + new Array(i+1).join(w[0]));\n}\nfor(var i = 1; i < l + 1; i+=2) {\n    print(new Array((l-i)/2+1).join(' ') + new Array(i+1).join(w[0]));\n}"
+    },
+    {
+      "id": 7,
+      "name": "Соседи единички (точка, 8 соседей)",
+      "text": "I = readline().split(' ');\nW=I[0]-0;\nH=I[1]-0;\nI=readline().split(' ');\nX = I[0]-0;\nY = I[1]-0;\ng=[];\nfor (i = 0; i < H; i++) {\n    g[i] = readline().split('');\n}\nf= function(x,y) {\n    c=0;\n    if(x>0 && g[y][x-1]=='1') c++;\n    if(y>0 && g[y-1][x]=='1') c++;\n    if(x<W-1 && g[y][x+1]=='1') c++;\n    if(y<H-1 && g[y+1][x]=='1') c++;\n\n    if(x>0 && y>0 && g[y-1][x-1]=='1') c++;\n    if(x<W-1 && y>0 && g[y-1][x+1]=='1') c++;\n    if(x>0 && y<H-1 && g[y+1][x+1]=='1') c++;\n    if(x>0 && y<H-1 && g[y+1][x-1]=='1') c++;\n    return c;\n}\nprint(f(X,Y))"
+    },
+    {
+      "id": 8,
+      "name": "Инвертировать HEX Color",
+      "text": "cH = readline().replace('#','');\nc1 = (255-parseInt((cH[0]+cH[1]), 16)).toString(16);\nc2 = (255-parseInt((cH[2]+cH[3]), 16)).toString(16);\nc3 = (255-parseInt((cH[4]+cH[5]), 16)).toString(16);\nc1 = c1.length < 2 ? ('0'+c1) : c1;\nc2 = c2.length < 2 ? ('0'+c2) : c2;\nc3 = c3.length < 2 ? ('0'+c3) : c3;\nprint(('#'+c1+c2+c3).toUpperCase());"
+    },
+    {
+      "id": 9,
+      "name": "Девяточка",
+      "text": " n=readline().split(\"\");a=[];for(var b=0;b<n.length;b++)x=n[b]-0,a.push(Math.min(Math.abs(9-x),x));print(a.join(\"\"));"
+    }
+  ]
+}

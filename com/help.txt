@@ -1,0 +1,48 @@
+for(var i=0; i<length; i++) {
+
+}
+
+--------------------------------
+
+for(var i=0; i<length; i++) {
+	for(var j=0; j<length; j++) {
+
+	}
+}
+
+--------------------------------
+
+new Array(n + 1).join('#');
+
+var pad = function(count, char) {
+	return new Array(count + 1).join(char);	
+}
+
+--------------------------------
+
+(?![A-Z]). 
+"faASFASFasf" --> "__ASFASF___"
+
+'aa12312 123 12q eq'.replace(/(?![a-zA-Z])./g, '').length
+
+--------------------------------
+
+I=readline().split(' ');print(I[0].replace(/./g,function(c,i){return c|I[1][i]}))
+
+_r.join(' ');
+
+String.fromCharCode();
+''.charCodeAt(0);
+------------------
+
+function setCharAt(str,index,chr) {
+    if(index > str.length-1) return str;
+    return str.substr(0,index) + chr + str.substr(index+1);
+}
+------------------
+
+var res;
+while ((res = p.exec(str)) !== null) {
+  console.log(res[0]);
+}
+
