@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+
+    <script src="../global.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="popup.js"></script>
+
+    <title>TEST</title>
+</head>
+<body>
+
+    <div class="tab-panel">
+        <ul class="tab-link">
+            <li class="active"><a href="#tabList">Solutions</a></li>
+            <li><a href="#tabCode">Code</a></li>
+            <li><a href="#tabSync">Synchronize</a></li>
+        </ul>
+
+        <div class="content-area">
+            <div id="tabList" class="tab-panel active">
+                <div class="table-wrapper">
+                    <table id="tblSolutions" cellpadding="0" cellspacing="0" border="0" class="tinytable">
+                        <thead>
+                            <tr>
+                                <th><h3>ID</h3></th>
+                                <th><h3>Name</h3></th>
+                                <th><h3></h3></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="tabCode" class="tab-panel inactive">
+                <div>
+                    <button id="btnGetCode">Get</button>
+                    <button id="btnSendCode">Send</button>
+                    <button id="btnMinimize">Mini</button>
+                </div>
+                <div>
+                    <input id="inpSolutionName" type="text">
+                    <button id="btnSaveSolution">Save</button>
+                </div>
+
+                <textarea id="txtCode" rows="30" cols="70"></textarea>
+            </div>
+
+            <div id="tabSync" class="tab-panel inactive">
+                <div>
+                    <button id="btnExport">Export</button>
+                    <button id="btnImport">Import</button>
+                </div>
+                <textarea id="txtData" rows="30" cols="70"></textarea>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+</body>
+</html>
