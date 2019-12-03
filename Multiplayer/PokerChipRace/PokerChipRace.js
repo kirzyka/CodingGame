@@ -1,4 +1,4 @@
-require('../../com/CG')('./Multiplayer/PokerChipRace/data.txt', function() {
+require('../../com/CG')('./data.txt', function() {
 
     function Chip(id, player, radius, x, y, vx, vy) {
         this.id = id;

@@ -6,17 +6,17 @@ function CG(fileName, runFunc) {
             var line = 0;
             var lines = data.split(/\n/gm);
 
-            GLOBAL.readline = function() {
+            global.readline = function() {
                 return lines[line++];
             };
 
-            GLOBAL.print = function() {
+            global.print = function() {
                 var args = Array.prototype.slice.call(arguments);
                 args.unshift("OUTPUT: ");
                 console.log.apply(console, args);
             };
 
-            GLOBAL.printErr = function() {
+            global.printErr = function() {
                 var args = Array.prototype.slice.call(arguments);
                 args.unshift("DEBUG:  ");
                 console.log.apply(console, args);
