@@ -20,6 +20,10 @@ class World {
         return this._playerId;
     }
 
+    get entitiesCount() {
+        return this._entities.length;
+    }
+
     init() {
         this._playerId = getRandomInt(0, PLAYERS_COUNT - 1);
 
@@ -56,9 +60,10 @@ class World {
     }
 
     process() {
-        for (let i = 0; i < this._entities.length; i++) {
+        for (let i = this._entities.length - 1; i > -1; i--) {
             const entity = this._entities[i];
 
+            // frame collisions
             if ((entity.x + entity.vx - entity.radius < 0) || (entity.x + entity.vx + entity.radius > WIDTH)) {
                 entity.vx = entity.vx * -1;
             }
@@ -68,9 +73,30 @@ class World {
 
             entity.x += entity.vx;
             entity.y += entity.vy;
-            this._entities[i] = entity;
+
+            // entities collisions
+            for (let j = this._entities.length - 1; j > -1; j--) {
+                const enemy = this._entities[j];
+                if (enemy.id === entity.id) {
+                    continue;
+                }
+                const d = dist(enemy.x, enemy.y, entity.x, entity.y);
+
+                if (d < enemy.radius + entity.radius) {
+                    if (enemy.radius > entity.radius) {
+                        enemy.swallow(entity);
+                        this._entities[j] = enemy;
+                        this._entities.splice(i, 1);
+                    } else {
+                        entity.swallow(enemy);
+                        this._entities[i] = entity;
+                        this._entities.splice(j, 1);
+                    }
+                } else {
+                    this._entities[i] = entity;
+                }
+            }            
         }
-        //console.log(this._entities);
     }
 
     command() {

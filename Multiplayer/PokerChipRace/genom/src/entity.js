@@ -9,6 +9,10 @@ class Entity {
         this._vy = this._playerId === -1 ? getRandomInt(-10, 10) : 0;
     }
 
+    get id() {
+        return this._id;
+    }
+
     get x() {
         return this._x;
     }
@@ -42,5 +46,9 @@ class Entity {
     }
     set vy(value) {
         this._vy = value;
+    }
+
+    swallow(entity) {
+        this._radius = Math.sqrt(Math.pow(this._radius, 2) + Math.pow(entity.radius, 2));
     }
 }

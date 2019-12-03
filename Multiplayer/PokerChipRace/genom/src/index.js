@@ -24,7 +24,7 @@ function loop() {
         clearInterval(interval);
     }
 
-    if (loops < MAX_LOOPS_COUNT) {
+    if (loops < MAX_LOOPS_COUNT || W.entitiesCount > 1) {
         interval = setInterval(function () {
             loop();
         }, LOOP_DELAY);
