@@ -1,11 +1,16 @@
 const WIDTH = 800;
 const HEIGHT = 515;
-const PLAYERS_COUNT = 5; // 2..5
 const CHIPS_MAX_COUNT = 6; // 1..6
+const CHIPS_RADIUS_MIN = 25;
+const CHIPS_RADIUS_MAX = 50;
 const DROPLETS_COUNT_MIN = 10;
 const DROPLETS_COUNT_MAX = 30;
 const DROPLET_RADIUS_MIN = 10;
 const DROPLET_RADIUS_MAX = 25;
+const COLOR_MAP = {
+    "-1": "#999",
+    "1": "#f90"
+}
 
 class World {
     constructor(map) {
@@ -16,20 +21,20 @@ class World {
         return this._entities;
     }
 
-    get playerId() {
-        return this._playerId;
-    }
-
     get entitiesCount() {
         return this._entities.length;
     }
 
     init() {
-        this._playerId = getRandomInt(0, PLAYERS_COUNT - 1);
-
         // add chips
-        for (let i = 0; i < PLAYERS_COUNT; i++) {
+        const chipsCount = getRandomInt(1, CHIPS_MAX_COUNT);
 
+        for (let i = 0; i < chipsCount; i++) {
+            const radius = getRandomInt(CHIPS_RADIUS_MIN, CHIPS_RADIUS_MAX);
+            const x = getRandomInt(0 + radius, WIDTH - radius);
+            const y = getRandomInt(0 + radius, HEIGHT - radius);
+
+            this.addEntity(new Entity(x, y, radius, 1));
         }
         // add droplets
         const dropletsCount = getRandomInt(DROPLETS_COUNT_MIN, DROPLETS_COUNT_MAX);
@@ -41,8 +46,6 @@ class World {
 
             this.addEntity(new Entity(x, y, radius));
         }
-
-        console.log(this._entities);
     }
 
     addEntity(entity) {
@@ -54,7 +57,7 @@ class World {
 
         this._entities.map((entity) => {
             if (entity) {
-                drawCircle(context, entity.x, entity.y, entity.radius, '#999');
+                drawCircle(context, entity.x, entity.y, entity.radius, COLOR_MAP[entity.playerId]);
             }
         });
     }
@@ -77,29 +80,54 @@ class World {
             // entities collisions
             for (let j = this._entities.length - 1; j > -1; j--) {
                 const enemy = this._entities[j];
-                if (enemy.id === entity.id) {
+                if (entity.id === enemy.id || entity.radius === 0) {
                     continue;
                 }
-                const d = dist(enemy.x, enemy.y, entity.x, entity.y);
+                const d = dist(entity.x, entity.y, enemy.x, enemy.y);
 
-                if (d < enemy.radius + entity.radius) {
-                    if (enemy.radius > entity.radius) {
-                        enemy.swallow(entity);
-                        this._entities[j] = enemy;
-                        this._entities.splice(i, 1);
-                    } else {
+                if (enemy.radius > 0 && d < (entity.radius + enemy.radius)) {
+                    if (entity.radius > enemy.radius) {
                         entity.swallow(enemy);
-                        this._entities[i] = entity;
-                        this._entities.splice(j, 1);
+                        enemy.radius = 0;
+                        this._entities[j] = enemy;
                     }
-                } else {
-                    this._entities[i] = entity;
                 }
-            }            
+                this._entities[i] = entity;
+            }  
+            
+            this._entities = this._entities.filter((entity) => entity.radius > 0);
+        }
+
+        return {
+            "yourChipsCount": this._entities.filter((entity) => entity.playerId === 1).length,
+            "allEntitiesCount": this._entities.length,
+            "entities": this._entities.map((entity) => [
+                entity.id,
+                entity.playerId,
+                entity.radius,
+                entity.x,
+                entity.y,
+                entity.vx,
+                entity.vy
+            ].join(' '))
         }
     }
 
-    command() {
+    commands(cmds) {
+        const chips = this._entities.filter((entity) => entity.playerId === 1);
+        
+        for (let i = 0; i < cmds.length; i++) {
+            const cmd = cmds[i];
+            const chip = chips[i];
+
+            if (cmd === "WAIT") {
+                continue;
+            }
+
+            const [x, y] = cmd.split(" ");
+
+            console.log(x, y, chip);
+        }
 
     }
 }

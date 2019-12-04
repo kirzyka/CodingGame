@@ -7,16 +7,41 @@ const W = new World();
 
 let loops = 0;
 let interval;
+let chips = [];
+let playerId = 1;
 
 W.init();
-const playerId = W.playerId;
-
 
 function loop() { 
-    W.process();
-
-
+    let commands = [];
+    const {yourChipsCount, allEntitiesCount, entities} = W.process();
     W.draw(context, canvas);
+
+    const ents = entities.map((entityStr) => {
+        const [id, playerId, radius, x, y, vx, vy] = entityStr.split(" ");
+        const entity = new Entity(x, y, radius, playerId, id, vx, vy);
+
+        return entity;
+    });
+
+    if (chips.length === 0) {
+        chips = ents
+            .filter((entity) => entity.playerId == playerId)
+            .map((entity) => {
+                const chip = new Chip(entity);
+        
+                return chip;
+            });
+    }
+
+    for (let i = 0; i < chips.length; i++) {
+        const cmd = chips[i].process(ents);
+        if (cmd) {
+            commands.push(cmd);
+        }
+    }
+
+    W.commands(commands);
     loops++;
 
     //-----------------

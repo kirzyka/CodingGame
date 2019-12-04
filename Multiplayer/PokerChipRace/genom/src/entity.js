@@ -1,16 +1,20 @@
 class Entity {
-    constructor(x, y, radius, playerId) {
-        this._id = getID();
+    constructor(x, y, radius, playerId, id, vx, vy) {
+        this._id = id || getID();
         this._playerId = playerId || -1;
         this._radius = radius;
         this._x = x;
         this._y = y;
-        this._vx = this._playerId === -1 ? getRandomInt(-10, 10) : 0;
-        this._vy = this._playerId === -1 ? getRandomInt(-10, 10) : 0;
+        this._vx = vx || this._playerId === -1 ? getRandomInt(-10, 10) : 0;
+        this._vy = vy || this._playerId === -1 ? getRandomInt(-10, 10) : 0;
     }
 
     get id() {
         return this._id;
+    }
+
+    get playerId() {
+        return this._playerId;
     }
 
     get x() {
