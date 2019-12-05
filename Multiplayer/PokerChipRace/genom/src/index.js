@@ -42,6 +42,7 @@ function loop() {
     }
 
     W.commands(commands);
+    console.log(commands);
     loops++;
 
     //-----------------
